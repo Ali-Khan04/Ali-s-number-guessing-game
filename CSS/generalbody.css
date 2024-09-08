@@ -28,7 +28,8 @@ body {
   padding: 30px;
   position: relative;
 }
-.button {
+.button,
+.button_reset {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,14 +43,14 @@ body {
   text-align: center;
   margin-top: 20px;
   cursor: pointer;
-  box-shadow: 4px 4px 8px #c4a58b, -4px -4px 8px #ffffff;
+  transition: box-shadow 0.2s;
+  padding: 10px;
 }
 .input input {
   border: none;
   border-radius: 20px;
   width: 150px;
   padding: 10px;
-  box-shadow: 10px 10px 15px rgba(255, 255, 255, 0.5);
 }
 .button1,
 .button2 {
@@ -76,6 +77,10 @@ body {
 }
 .p1 {
   margin-top: 0px;
+}
+.button:hover,
+.button_reset:hover {
+  box-shadow: 4px 4px 8px #c4a58b, -4px -4px 8px #ffffff;
 }
 .button:active,
 .button1:active,

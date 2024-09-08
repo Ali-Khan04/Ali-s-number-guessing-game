@@ -1,6 +1,6 @@
 const secret = Math.trunc(Math.random() * 100) + 1;
 let credits = 7;
-
+const reset = document.querySelector(".button_reset");
 document.querySelector(".button").addEventListener("click", function () {
   const input = Number(document.querySelector(".input input").value);
 
@@ -41,4 +41,11 @@ document
 function updateCreditsDisplay() {
   credits--;
   document.querySelector(".credits").textContent = `Credits: ${credits}`;
+}
+if (reset) {
+  reset.addEventListener("click", function () {
+    credits = 7;
+    document.querySelector(".credits").textContent = `Credits: ${credits}`;
+    document.querySelector(".hint").textContent = "Try Again!";
+  });
 }

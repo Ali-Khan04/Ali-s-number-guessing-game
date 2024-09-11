@@ -1,6 +1,31 @@
-const secret = Math.trunc(Math.random() * 100) + 1;
-let credits = 7;
+let secret, maxNumber, credits;
+
+const difficultySelect = document.getElementById("difficulty-select");
 const reset = document.querySelector(".button_reset");
+const levelCredits = document.querySelector(".credits");
+
+function setDifficulty(level) {
+  if (level === "easy") {
+    maxNumber = 50;
+    credits = 10;
+  } else if (level === "medium") {
+    maxNumber = 100;
+    credits = 7;
+  } else if (level === "hard") {
+    maxNumber = 200;
+    credits = 5;
+  }
+
+  secret = Math.trunc(Math.random() * maxNumber) + 1;
+  updateCreditsDisplay();
+  document.querySelector(".hint").textContent = "Guess the Number!";
+  document.querySelector(".credits").style.color = "#333";
+}
+
+function updateCreditsDisplay() {
+  levelCredits.textContent = `Credits: ${credits}`;
+}
+
 document.querySelector(".button").addEventListener("click", function () {
   const input = Number(document.querySelector(".input input").value);
 
@@ -12,16 +37,16 @@ document.querySelector(".button").addEventListener("click", function () {
     document.querySelector(".credits").style.color = "#60b347";
     showResultModal("You Won!!");
   } else if (input > secret && credits !== 0) {
-    document.querySelector(".hint ").textContent = "TOO High !";
-
+    document.querySelector(".hint").textContent = "TOO High!";
+    credits--;
     updateCreditsDisplay();
   } else if (input < secret && credits !== 0) {
-    document.querySelector(".hint ").textContent = "TOO Low !";
-
+    document.querySelector(".hint").textContent = "TOO Low!";
+    credits--;
     updateCreditsDisplay();
-  } else {
-    document.querySelector(".hint ").textContent = "You Lost";
-    showResultModal(`You lost ! ${secret} was the correct number`);
+  } else if (credits === 0) {
+    document.querySelector(".hint").textContent = "You Lost";
+    showResultModal(`You lost! ${secret} was the correct number`);
     document.querySelector(".credits").style.color = "#ff0000";
     document.querySelector("#result-message").style.color = "#ff0000";
   }
@@ -32,20 +57,21 @@ function showResultModal(message) {
   document.getElementById("result-message").innerText = message;
   modal.style.display = "block";
 }
+
 document
   .querySelector("#result-modal .close")
   .addEventListener("click", function () {
     document.getElementById("result-modal").style.display = "none";
   });
 
-function updateCreditsDisplay() {
-  credits--;
-  document.querySelector(".credits").textContent = `Credits: ${credits}`;
-}
 if (reset) {
   reset.addEventListener("click", function () {
-    credits = 7;
-    document.querySelector(".credits").textContent = `Credits: ${credits}`;
-    document.querySelector(".hint").textContent = "Try Again!";
+    setDifficulty(difficultySelect.value);
   });
 }
+
+setDifficulty("medium");
+
+difficultySelect.addEventListener("change", function () {
+  setDifficulty(difficultySelect.value);
+});

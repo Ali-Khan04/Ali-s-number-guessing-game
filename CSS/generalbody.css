@@ -88,7 +88,6 @@ body {
   box-shadow: inset 4px 4px 8px #c4a58b, inset -4px -4px 8px #ffffff;
 }
 .hints-section {
-  margin-top: 20px;
   text-align: center;
 }
 
@@ -99,4 +98,34 @@ body {
   padding: 10px;
   border-radius: 10px;
   box-shadow: 4px 4px 8px #c4a58b, -4px -4px 8px #ffffff;
+}
+.button_reset {
+  margin-bottom: 20px;
+}
+.difficulty {
+  margin-bottom: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  text-align: center;
+}
+
+.difficulty label {
+  margin-right: 10px;
+  color: #333;
+  font-weight: bold;
+}
+
+#difficulty-select {
+  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  color: #333;
+  cursor: pointer;
+}
+
+#difficulty-select option {
+  font-size: 16px;
+  color: #333;
 }

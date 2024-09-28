@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Signup & Login</title>
+    <link rel="stylesheet" href="/signup_login.css" />
+  </head>
+  <body>
+    <div class="body1" id="signup-form">
+      <h2 class="p1">Sign Up</h2>
+      <form>
+        <div class="input">
+          <input
+            type="text"
+            id="signup-username"
+            placeholder="Username"
+            required
+          /><br /><br />
+          <input
+            type="password"
+            id="signup-password"
+            placeholder="Password"
+            required
+          />
+        </div>
+        <button type="button" id="signup-button" class="button">Sign Up</button>
+      </form>
+      <p class="hint">
+        Already have an account?
+        <a href="#" id="login-link" onclick="showLogin()">Login</a>
+      </p>
+    </div>
+
+    <div class="body1" id="login-form" style="display: none">
+      <h2 class="p1">Login</h2>
+      <form>
+        <div class="input">
+          <input
+            type="text"
+            id="login-username"
+            placeholder="Username"
+            required
+          /><br /><br />
+          <input
+            type="password"
+            id="login-password"
+            placeholder="Password"
+            required
+          />
+        </div>
+        <button type="button" id="login-button" class="button">Login</button>
+      </form>
+      <p class="hint">
+        Don't have an account?
+        <a href="#" id="signup-link" onclick="showSignup()">Sign Up</a>
+      </p>
+    </div>
+
+    <script>
+      function showLogin() {
+        document.getElementById("signup-form").style.display = "none";
+        document.getElementById("login-form").style.display = "block";
+      }
+
+      function showSignup() {
+        document.getElementById("login-form").style.display = "none";
+        document.getElementById("signup-form").style.display = "block";
+      }
+
+      document
+        .getElementById("signup-button")
+        .addEventListener("click", async (event) => {
+          event.preventDefault();
+
+          const username = document.getElementById("signup-username").value;
+          const password = document.getElementById("signup-password").value;
+
+          try {
+            const response = await fetch("/signup", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ username, password }),
+            });
+
+            const result = await response.text();
+            alert(result);
+          } catch (error) {
+            console.error("Error during signup:", error);
+          }
+        });
+
+      document
+        .getElementById("login-button")
+        .addEventListener("click", async (event) => {
+          event.preventDefault();
+
+          const username = document.getElementById("login-username").value;
+          const password = document.getElementById("login-password").value;
+
+          try {
+            const response = await fetch("/login", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ username, password }),
+            });
+
+            if (response.ok) {
+              window.location.href = "/Project-1";
+            } else {
+              const result = await response.text();
+              alert(result);
+            }
+          } catch (error) {
+            console.error("Error during login:", error);
+          }
+        });
+    </script>
+  </body>
+</html>

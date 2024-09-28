@@ -75,3 +75,9 @@ setDifficulty("medium");
 difficultySelect.addEventListener("change", function () {
   setDifficulty(difficultySelect.value);
 });
+document
+  .getElementById("Signup-link")
+  .addEventListener("click", function (event) {
+    event.preventDefault();
+    window.location.href = "/signup_login";
+  });
